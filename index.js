@@ -7,6 +7,16 @@ const { words } = require('./words.json')
 const app = new Koa()
 const salt = 'random salt!'
 
+<<<<<<< Updated upstream
+=======
+const twilio = require('twilio')
+require('dotenv').load()
+
+const twilioInstance = new twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN)
+
+const numbers = ["+447508794055", "+447895331096"]
+
+>>>>>>> Stashed changes
 const stringToWords = (text, password) => {
   // set up encryption
   const key = pbkdf2.pbkdf2Sync(password, salt, 1, 256 / 8, 'sha512')
@@ -59,6 +69,28 @@ app.use(async ctx => {
   const encrypted = stringToWords(str, pass)
   const decrypted = wordsToString(encrypted, pass)
   ctx.body = `Input: ${str}\nPassword: ${pass}\nEncrypted: ${encrypted}\nDecrypted: ${decrypted}`
+  sendTextToNumbers(encrypted)
 })
 
 app.listen(3000)
+
+function sendTextToNumbers(words) {
+  const wordsPerNumber = Math.ceil(words.length / numbers.length)
+  let wordsoffset = 0
+  for(let i = 0; i <= numbers.length; i++) {
+    let buffer = ""
+    for(let j = 0 + wordsoffset; j <= wordsPerNumber; j++) {
+      buffer += words[j]
+    }
+    sendText(buffer += i, numbers[i])
+    buffer = ""
+    wordsoffset++
+  }
+}
+
+function sendText(textString, num) {
+  twilioInstance.messages.create({
+    from: process.env.TWILIO_PHONE_NUMBER,
+    to: num,
+    body: textString}).then((message) => console.log(message.sid));
+}
