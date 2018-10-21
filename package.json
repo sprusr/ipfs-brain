@@ -8,7 +8,9 @@
     "aes-js": "^3.1.1",
     "bn.js": "^4.11.8",
     "koa": "^2.5.3",
-    "pbkdf2": "^3.0.17"
+    "pbkdf2": "^3.0.17",
+    "dotenv": "^6.1.0",
+    "twilio": "^3.23.1"
   },
   "scripts": {
     "start": "node index.js"

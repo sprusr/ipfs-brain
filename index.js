@@ -7,16 +7,23 @@ const { words } = require('./words.json')
 const app = new Koa()
 const salt = 'random salt!'
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> c272c6dd7592c5cce302b989429c534f70ac84a6
 const twilio = require('twilio')
 require('dotenv').load()
 
 const twilioInstance = new twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN)
 
+<<<<<<< HEAD
 const numbers = ["+447508794055", "+447895331096"]
 
 >>>>>>> Stashed changes
+=======
+
+>>>>>>> c272c6dd7592c5cce302b989429c534f70ac84a6
 const stringToWords = (text, password) => {
   // set up encryption
   const key = pbkdf2.pbkdf2Sync(password, salt, 1, 256 / 8, 'sha512')
